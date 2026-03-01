@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <%- include('partials/head') %>
+   <title>Add Confession</title>
+   <style>
+      .form-container {
+         max-width: 600px;
+         margin: 50px auto;
+         padding: 30px;
+         background-color: #f8f9fa;
+         border-radius: 8px;
+         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+      .form-group {
+         margin-bottom: 20px;
+      }
+      .form-group label {
+         font-weight: 600;
+         margin-bottom: 8px;
+         display: block;
+      }
+      .form-group input[type="text"],
+      .form-group textarea,
+      .form-group input[type="file"] {
+         width: 100%;
+         padding: 10px;
+         border: 1px solid #ddd;
+         border-radius: 4px;
+         font-family: inherit;
+         font-size: 14px;
+      }
+      .form-group textarea {
+         resize: vertical;
+         min-height: 200px;
+      }
+      .form-group input[type="file"] {
+         padding: 8px;
+         cursor: pointer;
+      }
+      .form-group input[type="file"]::file-selector-button {
+         background-color: #007bff;
+         color: white;
+         padding: 6px 12px;
+         border: none;
+         border-radius: 4px;
+         cursor: pointer;
+      }
+      .form-group input[type="file"]::file-selector-button:hover {
+         background-color: #0056b3;
+      }
+      .btn-submit {
+         width: 100%;
+         padding: 12px;
+         background-color: #28a745;
+         color: white;
+         border: none;
+         border-radius: 4px;
+         font-size: 16px;
+         font-weight: 600;
+         cursor: pointer;
+         transition: background-color 0.3s;
+      }
+      .btn-submit:hover {
+         background-color: #218838;
+      }
+      .image-preview {
+         margin-top: 10px;
+         max-width: 300px;
+      }
+      .image-preview img {
+         max-width: 100%;
+         border-radius: 4px;
+      }
+   </style>
+</head>
+<body>
+    <%- include('partials/nav',{user:user}) %>
+    <div class="form-container">
+        <h1 class="mb-3">Add Confession</h1>
+        <form action="/blog/add-blog" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input 
+                    type="text" 
+                    id="title" 
+                    name="title" 
+                    placeholder="Enter your confession title" 
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="content">Content</label>
+                <textarea 
+                    id="content" 
+                    name="content" 
+                    placeholder="Write your confession here..." 
+                    required
+                ></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="coverImage">Cover Image</label>
+                <input 
+                    type="file" 
+                    id="coverImage" 
+                    name="coverImage" 
+                    accept="image/*"
+                >
+                <div id="imagePreview" class="image-preview"></div>
+            </div>
+
+            <button type="submit" class="btn-submit">Publish Confession</button>
+        </form>
+    </div>
+
+    <script>
+        // Image preview
+        const coverImageInput = document.getElementById('coverImage');
+        const imagePreview = document.getElementById('imagePreview');
+
+        coverImageInput.addEventListener('change', function(e) {
+            imagePreview.innerHTML = '';
+            if (this.files && this.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const img = document.createElement('img');
+                    img.src = event.target.result;
+                    imagePreview.appendChild(img);
+                };
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+    </script>
+   <%- include('partials/script') %>
+</body>
+</html>

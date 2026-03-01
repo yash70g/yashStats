@@ -1,0 +1,78 @@
+/* Watch Dogs 2 inspired theme */
+:root{
+  --bg-dark:#000814; /* very dark navy/black */
+  --neo-cyan:#0ea5ff; /* bright blue */
+  --neo-pink:#00e68a; /* neon green (used in place of previous pink) */
+  --neo-yellow:#8f9aa6; /* muted grey accent */
+  --muted:#98a3af; /* neutral grey for secondary text */
+  --card-bg: rgba(255,255,255,0.03);
+}
+
+html,body{
+  height:100%;
+  background: radial-gradient( circle at 8% 8%, rgba(14,165,255,0.03), transparent 10%),
+              linear-gradient(180deg, rgba(0,8,20,0.98), rgba(0,6,14,0.99));
+  color:#dbeff6;
+  font-family: 'Share Tech Mono', 'Orbitron', 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+
+.container, .container-fluid{padding-left:1.25rem;padding-right:1.25rem}
+
+/* Glitch brand */
+.wd-brand{
+  font-weight:700;
+  color:var(--neo-cyan);
+  letter-spacing:1px;
+  text-transform:uppercase;
+  position:relative;
+  text-shadow: 0 2px 12px rgba(14,165,255,0.06), 0 0 6px rgba(0,230,138,0.03);
+}
+.wd-brand::after{
+  content:'YASH';
+  position:absolute;left:2px;top:1px;color:var(--neo-pink);opacity:0.06;mix-blend-mode:screen;
+}
+
+/* Navbar */
+.navbar{
+  background: linear-gradient(90deg, rgba(0,4,12,0.6), rgba(0,6,18,0.7));
+  border-bottom:1px solid rgba(255,255,255,0.02);
+}
+.navbar .nav-link{
+  color:var(--muted)!important;
+  transition:color .12s ease, transform .12s ease;
+}
+.navbar .nav-link:hover{color:var(--neo-cyan)!important; transform:translateY(-1px)}
+
+/* Cards */
+.card, .card-body{
+  background:linear-gradient(180deg, rgba(10,18,28,0.6), rgba(6,12,20,0.55));
+  border:1px solid rgba(255,255,255,0.02);
+  box-shadow: 0 10px 30px rgba(0,6,14,0.6);
+}
+.card .title{color:var(--neo-pink);font-weight:700}
+.card .meta{color:var(--muted);font-size:0.9rem}
+
+/* Buttons */
+.btn-wd{
+  background: linear-gradient(90deg,var(--neo-cyan),var(--neo-pink));
+  color:#041018;border: none;font-weight:700;box-shadow: 0 8px 26px rgba(14,165,255,0.06), 0 6px 20px rgba(0,230,138,0.04);
+}
+.btn-wd:active{transform:translateY(1px)}
+
+/* Accent lines and grid */
+.header-hr{
+  height:2px;background:linear-gradient(90deg,transparent,var(--neo-cyan),transparent);border-radius:2px;margin:8px 0 18px 0
+}
+
+/* Blog list */
+.blog-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+.blog-card{padding:16px;border-radius:8px}
+
+/* Footer small */
+.footer-small{color:var(--muted);font-size:0.85rem;padding:18px 0;text-align:center}
+
+/* Responsiveness tweaks */
+@media (max-width:576px){
+  .wd-brand{font-size:14px}
+}
