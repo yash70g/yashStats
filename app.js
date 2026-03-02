@@ -1,10 +1,8 @@
 const express = require('express');
 const path = require('path');
 require('dotenv').config();
-const dns = require('dns');
-// force Node resolver to use public DNS servers (helps SRV lookups in some networks)
-dns.setServers(['8.8.8.8','1.1.1.1']);
 const app=express();
+
 const userRoute=require('./routes/user');
 const blogRoute=require('./routes/blog');
 const mongoose = require('mongoose');
@@ -13,7 +11,7 @@ const { checkForAuthCookie } = require('./middlewares/auth');
 const Blog = require('./models/blog');
 
 const PORT=process.env.PORT || 3000;
-const URI=process.env.MONGO_URI;
+const URI=process.env.MONGO_URI||'mongodb+srv://yash70g:qwerty123@cluster0.ov9niae.mongodb.net/?appName=Cluster0';
         mongoose.connect(URI,{
         }).then(()=>{
     console.log('Connected to MongoDB');

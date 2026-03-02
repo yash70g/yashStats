@@ -78,7 +78,7 @@
     <%- include('partials/nav',{user:user}) %>
     <div class="form-container">
         <h1 class="mb-3">Add Confession</h1>
-        <form action="/blog/add-blog" method="POST" enctype="multipart/form-data">
+      <form action="/blog/add-blog" method="POST">
             <div class="form-group">
                 <label for="title">Title</label>
                 <input 
@@ -101,14 +101,14 @@
             </div>
 
             <div class="form-group">
-                <label for="coverImage">Cover Image</label>
-                <input 
-                    type="file" 
-                    id="coverImage" 
-                    name="coverImage" 
-                    accept="image/*"
-                >
-                <div id="imagePreview" class="image-preview"></div>
+               <label for="imageUrl">Cover Image URL</label>
+               <input 
+                  type="text" 
+                  id="imageUrl" 
+                  name="imageUrl" 
+                  placeholder="https://example.com/image.jpg"
+               >
+               <div id="imagePreview" class="image-preview"></div>
             </div>
 
             <button type="submit" class="btn-submit">Publish Confession</button>
@@ -116,22 +116,22 @@
     </div>
 
     <script>
-        // Image preview
-        const coverImageInput = document.getElementById('coverImage');
-        const imagePreview = document.getElementById('imagePreview');
+      // Image preview for URL input
+      const imageUrlInput = document.getElementById('imageUrl');
+      const imagePreview = document.getElementById('imagePreview');
 
-        coverImageInput.addEventListener('change', function(e) {
-            imagePreview.innerHTML = '';
-            if (this.files && this.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    const img = document.createElement('img');
-                    img.src = event.target.result;
-                    imagePreview.appendChild(img);
-                };
-                reader.readAsDataURL(this.files[0]);
-            }
-        });
+      function renderPreview(url) {
+         imagePreview.innerHTML = '';
+         if (!url) return;
+         const img = document.createElement('img');
+         img.src = url;
+         img.alt = 'Cover preview';
+         imagePreview.appendChild(img);
+      }
+
+      imageUrlInput.addEventListener('input', function () {
+         renderPreview(this.value.trim());
+      });
     </script>
    <%- include('partials/script') %>
 </body>

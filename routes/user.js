@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
+const { createToken } = require('../services/auth');
 
 // router.get('/signin',(req,res)=>{
 //     res.render('signin.ejs');
@@ -15,8 +16,14 @@ router.get('/signin',(req,res)=>{
 
 router.post('/signup',async (req,res)=>{
     const {fullName,email,password}=req.body;
-    await User.create({fullName,email,password});
-    return res.redirect('/');
+    try {
+        const user = await User.create({fullName,email,password});
+        const token = createToken(user);
+        return res.cookie('token', token).redirect('/');
+    } catch (err) {
+        console.error(err);
+        return res.status(500).send('Error creating user');
+    }
 });
 
 router.post('/signin',async (req,res)=>{
