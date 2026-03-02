@@ -3,16 +3,11 @@ const router = express.Router();
 const path = require('path');
 const Blog = require('../models/blog');
 router.get('/add-blog', (req, res) => {
-    if (!req.user) {
-        return res.redirect('/user/signin');
-    }
     res.render('addBlog.ejs', { user: req.user });
 });
 router.post('/add-blog', async (req, res) => {
     try {
-        if (!req.user) {
-            return res.status(401).send('Unauthorized');
-        }
+        // Authentication removed: allow creating blogs without requiring a logged-in user.
         const { title, content, imageUrl } = req.body;
         if (!title || !content) {
             return res.status(400).send('Title and content are required');
@@ -25,7 +20,7 @@ router.post('/add-blog', async (req, res) => {
             title,
             content,
             coverImageUrl,
-            createdBy: req.user._id
+            createdBy: req.user ? req.user._id : null
         });
         return res.redirect('/');
     } catch (err) {

@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
    <%- include('partials/head') %>
-   <title>Homepage</title>
    <style>
       .blogs-container {
          max-width: 1200px;
@@ -100,7 +99,7 @@
                   <img src="<%= blog.coverImageUrl %>" alt="<%= blog.title %>">
                   <div class="blog-card-content">
                      <h3><%= blog.title %></h3>
-                     <div class="author">By <%= blog.createdBy.fullName %></div>
+                     <div class="author">By <%= blog.createdBy ? blog.createdBy.fullName : 'Anonymous' %></div>
                      <div class="date"><%= new Date(blog.createdAt).toLocaleDateString() %></div>
                      <div class="excerpt"><%= blog.content.substring(0, 200) %></div>
                      <div style="margin-top:12px;">

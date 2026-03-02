@@ -7,7 +7,6 @@ const userRoute=require('./routes/user');
 const blogRoute=require('./routes/blog');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
-const { checkForAuthCookie } = require('./middlewares/auth');
 const Blog = require('./models/blog');
 
 const PORT=3000;
@@ -21,12 +20,11 @@ mongoose.connect(URI,{
     
 app.set('view engine','ejs');
 app.set("views",path.resolve("./views"));
-// serve static assets (css, js, uploads)
+
 app.use(express.static(path.resolve("./public")));
 app.use('/images', express.static(path.resolve("./images")));
 app.use(express.urlencoded({extended:true})); 
 app.use(cookieParser());
-app.use(checkForAuthCookie('token'));
 
 app.use('/user',userRoute);
 app.use('/blog',blogRoute);
