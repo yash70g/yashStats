@@ -1,8 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const {createHmac,randomBytes} = require('crypto');
-const {createToken} = require('../services/auth');
-
+// Authentication removed: no token creation/validation here.
 const userSchema = new Schema({
     fullName: {
         type: String,
@@ -45,18 +44,17 @@ userSchema.pre('save',function (){
     this.password=hash;
 });
 
-userSchema.static('matchPasswordAndGenerateToken', async function (email,password){
-    const user=await this.findOne({email});
+userSchema.static('authenticate', async function (email,password){
+    const user = await this.findOne({ email });
     if(!user){
         throw new Error('User not found');
     }
-    const salt=user.salt;
-    const hashedPasswrod=user.password;
-    const hash=createHmac('sha256',salt).update(password).digest('hex');
-    const isMatch=hash === hashedPasswrod;
+    const salt = user.salt;
+    const hashedPassword = user.password;
+    const hash = createHmac('sha256', salt).update(password).digest('hex');
+    const isMatch = hash === hashedPassword;
     if(isMatch){
-        const token = createToken(user);
-        return token;
+        return user;
     } else {
         throw new Error('Invalid password');
     }

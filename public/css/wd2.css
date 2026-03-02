@@ -42,6 +42,10 @@ html,body{
   color:var(--muted)!important;
   transition:color .12s ease, transform .12s ease;
 }
+.nav2{
+  color: red;
+  font-weight: bolder;
+}
 .navbar .nav-link:hover{color:var(--neo-cyan)!important; transform:translateY(-1px)}
 
 /* Cards */
