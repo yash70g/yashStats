@@ -10,9 +10,9 @@ const cookieParser = require('cookie-parser');
 const { checkForAuthCookie } = require('./middlewares/auth');
 const Blog = require('./models/blog');
 
-const PORT=process.env.PORT || 3000;
-const URI=process.env.MONGO_URI||'mongodb+srv://yash70g:qwerty123@cluster0.ov9niae.mongodb.net/?appName=Cluster0';
-        mongoose.connect(URI,{
+const PORT=3000;
+const URI = 'mongodb+srv://yash70g:qwerty123@cluster0.ov9niae.mongodb.net/?retryWrites=true&w=majority';
+mongoose.connect(URI,{
         }).then(()=>{
     console.log('Connected to MongoDB');
 }).catch((err)=>{
@@ -47,6 +47,6 @@ app.get('/',async (req,res)=>{
     }
 })
 
-app.listen(PORT,()=>{
-    console.log(`Server is running on port ${PORT}`);
+app.listen(3000, "0.0.0.0", () => {
+  console.log("Server running on port 3000");
 });
